@@ -47,7 +47,7 @@ class NewPair(Module):
           value=[-1,-1]
           for i in range(len(indices)):
               index=indices[i]
-              if index>=0: 
+              if (index>=0 and len(objs)>index):
                   value[i]=getattr(objs[index],branchname.replace(self.name+"_", ""))
           self.out.fillBranch(branchname.replace(self.name, self.newname),  value);   
 
@@ -55,7 +55,7 @@ class NewPair(Module):
         return True
     
 dumpSelectedPhotons   = lambda : NewPair(name="Photon",   index="gHidx",   newname="selectedPhoton") 
-dumpSelectedMuons     = lambda : NewPair(name="Muon",     index="tauHidx", newname="selectedMuon") 
-dumpSelectedElectrons = lambda : NewPair(name="Electron", index="tauHidx", newname="selectedElectron") 
+dumpSelectedMuons     = lambda : NewPair(name="Muon",     index="muHidx",  newname="selectedMuon") 
+dumpSelectedElectrons = lambda : NewPair(name="Electron", index="eleHidx", newname="selectedElectron") 
 dumpSelectedTaus      = lambda : NewPair(name="Tau",      index="tauHidx", newname="selectedTau") 
  
