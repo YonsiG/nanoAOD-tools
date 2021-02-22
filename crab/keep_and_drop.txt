@@ -6,3 +6,4 @@ keep Jet*
 drop FatJet*
 drop HLT*
 keep HLT*hoton*
+drop L1*

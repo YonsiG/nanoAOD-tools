@@ -21,7 +21,7 @@ from  PhysicsTools.NanoAODTools.postprocessing.examples.hgg_selection import *
 from  PhysicsTools.NanoAODTools.postprocessing.examples.dump_object import *
 from  PhysicsTools.NanoAODTools.postprocessing.examples.dump_pair import *
 #very basic selection which is covered then by the actual Hgg selection and crop at 1000 evts
-selection='''Sum$(Photon_pt > 18 && abs(Photon_eta)<2.5) > 1'''
+selection='''Sum$(Photon_pt > 18 && abs(Photon_eta)<2.5) > 1 &&(Sum$(Electron_pt > 10 && abs(Electron_eta<2.5)) || Sum$(Muon_pt > 10 && abs(Muon_eta<2.4)) || Sum$(Tau_pt > 15 && abs(Tau_eta<2.4)) )'''
 
 #work on a local file
 # a modified nanoAOD which contians extra phton features -> to be merged soon to the central stuff
@@ -47,7 +47,8 @@ if "mc18" in sys.argv[2]:
                     selection.replace('\n',''),
                     branchsel="keep_and_drop.txt",
                     outputbranchsel="keep_and_drop.txt",
-                    modules=[puAutoWeight_2018(),jetmetUncertainties2018(), muonScaleRes2018(), gammaSF(), HggModule2018(), gammaWeightSF(), dumpSelectedPhotons()],
+                    modules=[puAutoWeight_2018(),jetmetUncertainties2018(), muonScaleRes2018(), gammaSF(), HggModule2018(), gammaWeightSF(), dumpSelectedPhotons(),
+                             HHggtautaulep2018(),HHggtautauModule2018LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus() ]
                     provenance=True,
                     fwkJobReport=True, #NOT IN LOCAL
                     jsonInput=runsAndLumis() #NOT IN LOCAL
@@ -58,7 +59,8 @@ elif "mc17" in sys.argv[2]:
                     selection.replace('\n',''),
                     branchsel="keep_and_drop.txt",
                     outputbranchsel="keep_and_drop.txt",
-                    modules=[puAutoWeight_2017(),jetmetUncertainties2017(), muonScaleRes2017(), PrefireCorr2017(), gammaSF(), HggModule2017(), gammaWeightSF(), dumpSelectedPhotons()],
+                    modules=[puAutoWeight_2017(),jetmetUncertainties2017(), muonScaleRes2017(), PrefireCorr2017(), gammaSF(), HggModule2017(), gammaWeightSF(), dumpSelectedPhotons(),
+                             HHggtautaulep2017(),HHggtautauModule2017LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus()],
                     provenance=True,
                     fwkJobReport=True, #NOT IN LOCAL
                     jsonInput=runsAndLumis() #NOT IN LOCAL
@@ -69,7 +71,8 @@ elif "mc16" in sys.argv[2]:
                     selection.replace('\n',''),
                     branchsel="keep_and_drop.txt",
                     outputbranchsel="keep_and_drop.txt",
-                    modules=[puAutoWeight_2016(),jetmetUncertainties2016(), muonScaleRes2016(), PrefCorr2016(), gammaSF(), HggModule2016(), gammaWeightSF(), dumpSelectedPhotons()],
+                    modules=[puAutoWeight_2016(),jetmetUncertainties2016(), muonScaleRes2016(), PrefCorr2016(), gammaSF(), HggModule2016(), gammaWeightSF(), dumpSelectedPhotons(),
+                             HHggtautaulep2016(),HHggtautauModule2016LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus()],
                     provenance=True,
                     fwkJobReport=True, #NOT IN LOCAL
                     jsonInput=runsAndLumis() #NOT IN LOCAL
@@ -80,7 +83,7 @@ elif "data18" in sys.argv[2]:
                     selection.replace('\n',''),
                     branchsel="keep_and_drop.txt",
                     outputbranchsel="keep_and_drop.txt",
-                    modules=[muonScaleRes2018(), HggModuleData2018(), dumpSelectedPhotons()],
+                    modules=[muonScaleRes2016(), HggModuleData2018(), dumpSelectedPhotons(), HHggtautaulep2018(),HHggtautauModule2018LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus()],
                     provenance=True,
                     fwkJobReport=True, #NOT IN LOCAL
                     jsonInput=runsAndLumis() #NOT IN LOCAL
@@ -91,7 +94,7 @@ elif "data17" in sys.argv[2]:
                     selection.replace('\n',''),
                     branchsel="keep_and_drop.txt",
                     outputbranchsel="keep_and_drop.txt",
-                    modules=[muonScaleRes2017(), HggModuleData2017(), dumpSelectedPhotons()],
+                    modules=[muonScaleRes2017(), HggModuleData2017(), dumpSelectedPhotons(), HHggtautaulep2017(),HHggtautauModule2017LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus()],
                     provenance=True,
                     fwkJobReport=True, #NOT IN LOCAL
                     jsonInput=runsAndLumis() #NOT IN LOCAL
@@ -102,7 +105,7 @@ elif "data16" in sys.argv[2]:
                     selection.replace('\n',''),
                     branchsel="keep_and_drop.txt",
                     outputbranchsel="keep_and_drop.txt",
-                    modules=[muonScaleRes2016(), HggModuleData2016(), dumpSelectedPhotons()],
+                    modules=[muonScaleRes2016(), HggModuleData2016(), dumpSelectedPhotons(), HHggtautaulep2016(),HHggtautauModule2016LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus()],
                     provenance=True,
                     fwkJobReport=True, #NOT IN LOCAL
                     jsonInput=runsAndLumis() #NOT IN LOCAL
