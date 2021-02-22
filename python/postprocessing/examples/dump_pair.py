@@ -57,5 +57,5 @@ class NewPair(Module):
 dumpSelectedPhotons   = lambda : NewPair(name="Photon",   index="gHidx",   newname="selectedPhoton") 
 dumpSelectedMuons     = lambda : NewPair(name="Muon",     index="muHidx",  newname="selectedMuon") 
 dumpSelectedElectrons = lambda : NewPair(name="Electron", index="eleHidx", newname="selectedElectron") 
-dumpSelectedTaus      = lambda : NewPair(name="Tau",      index="tauHidx", newname="selectedTau") 
+dumpSelectedTaus      = lambda : NewPair(name="Tau",      index="tauHidxLoose", newname="selectedTauLoose") 
  

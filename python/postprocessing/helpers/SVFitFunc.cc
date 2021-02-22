@@ -30,10 +30,10 @@ vector<double> SVfit_results(float measuredMETx, float measuredMETy, float covME
 	}
 
 	if ( category2 == 1 ){
-  	measuredTauLeptons.push_back(MeasuredTauLepton(MeasuredTauLepton::kTauToMuDecay, tau1_pt, tau1_eta, tau1_phi, 0.10566));
+  	measuredTauLeptons.push_back(MeasuredTauLepton(MeasuredTauLepton::kTauToMuDecay, tau2_pt, tau2_eta, tau2_phi, 0.10566));
 	}
 	else if ( category2 == 2 ){
-		measuredTauLeptons.push_back(MeasuredTauLepton(MeasuredTauLepton::kTauToElecDecay, tau1_pt, tau1_eta, tau1_phi, 0.51100e-3));
+		measuredTauLeptons.push_back(MeasuredTauLepton(MeasuredTauLepton::kTauToElecDecay, tau2_pt, tau2_eta, tau2_phi, 0.51100e-3));
 	}
 	else {
 		measuredTauLeptons.push_back(MeasuredTauLepton(MeasuredTauLepton::kTauToHadDecay, tau2_pt, tau2_eta, tau2_phi,  tau2_mass, tauDecay_mode2));

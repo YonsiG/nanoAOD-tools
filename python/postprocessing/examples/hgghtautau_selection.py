@@ -143,9 +143,18 @@ class HHggtautauProducer(Module):
         Category_tausel = -1
         Category_pairs = -1
         
-        selectedMuon_ptSVFit     = selectedMuon_etaSVFit     = selectedMuon_phiSVFit     = selectedMuon_mSVFit     = [-1,-1]         
-        selectedElectron_ptSVFit = selectedElectron_etaSVFit = selectedElectron_phiSVFit = selectedElectron_mSVFit = [-1,-1] 
-        selectedTau_ptSVFit      = selectedTau_etaSVFit      = selectedTau_phiSVFit      = selectedTau_mSVFit      = [-1,-1] 
+        selectedMuon_ptSVFit      = [-1,-1] 
+        selectedMuon_etaSVFit     = [-1,-1] 
+        selectedMuon_phiSVFit     = [-1,-1] 
+        selectedMuon_mSVFit       = [-1,-1]         
+        selectedElectron_ptSVFit  = [-1,-1] 
+        selectedElectron_etaSVFit = [-1,-1] 
+        selectedElectron_phiSVFit = [-1,-1] 
+        selectedElectron_mSVFit   = [-1,-1] 
+        selectedTau_ptSVFit       = [-1,-1] 
+        selectedTau_etaSVFit      = [-1,-1] 
+        selectedTau_phiSVFit      = [-1,-1] 
+        selectedTau_mSVFit        = [-1,-1] 
                         
         tautauMassSVFit = tautauPtSVFit = tautauEtaSVFit = tautauPhiSVFit = tautaudRSVFit=-1
         
@@ -263,7 +272,7 @@ class HHggtautauProducer(Module):
             selectedTau_phiSVFit[1] = res[10]
             selectedTau_mSVFit[1]   = res[11]
             
-            tautaudRSVFit = deltaR(selectedTau_etaSVFit[0], selectedTau_phiSVFit[0], selectedTau_etaSVFit[1], selectedTau_phiSVFit[1])
+            tautaudRSVFit = deltaR(selectedMuon_etaSVFit[0], selectedMuon_phiSVFit[0], selectedTau_etaSVFit[1], selectedTau_phiSVFit[1])
             tautaudR = deltaR(taus[index1],taus[index2])
             
             ggtautaudR = deltaR(ggEta,tautauEta,ggPhi,tautauPhi)
@@ -294,7 +303,7 @@ class HHggtautauProducer(Module):
             selectedTau_phiSVFit[0] = res[10]
             selectedTau_mSVFit[0]   = res[11]
             
-            tautaudRSVFit = deltaR(selectedTau_etaSVFit[0], selectedTau_phiSVFit[0], selectedTau_etaSVFit[1], selectedTau_phiSVFit[1])
+            tautaudRSVFit = deltaR(selectedElectron_etaSVFit[0], selectedElectron_phiSVFit[0], selectedTau_etaSVFit[1], selectedTau_phiSVFit[1])
             tautaudR = deltaR(electrons[index1],taus[index2])
             
             ggtautaudR = deltaR(ggEta,tautauEta,ggPhi,tautauPhi)
@@ -358,7 +367,7 @@ class HHggtautauProducer(Module):
             selectedMuon_phiSVFit[1] = res[10]
             selectedMuon_mSVFit[1]   = res[11]
             
-            tautaudRSVFit = deltaR(selectedTau_etaSVFit[0], selectedTau_phiSVFit[0], selectedTau_etaSVFit[1], selectedTau_phiSVFit[1])
+            tautaudRSVFit = deltaR(selectedMuon_etaSVFit[0], selectedMuon_phiSVFit[0], selectedMuon_etaSVFit[1], selectedMuon_phiSVFit[1])
             tautaudR = deltaR(muons[index1],muons[index2])
             
             ggtautaudR = deltaR(ggEta,tautauEta,ggPhi,tautauPhi)
@@ -390,7 +399,7 @@ class HHggtautauProducer(Module):
             selectedElectron_phiSVFit[1] = res[10]
             selectedElectron_mSVFit[1]   = res[11]
             
-            tautaudRSVFit = deltaR(selectedTau_etaSVFit[0], selectedTau_phiSVFit[0], selectedTau_etaSVFit[1], selectedTau_phiSVFit[1])
+            tautaudRSVFit = deltaR(selectedElectron_etaSVFit[0], selectedElectron_etaSVFit[0], selectedElectron_etaSVFit[1], selectedElectron_etaSVFit[1])
             tautaudR = deltaR(electrons[index1],electrons[index2])
             
             ggtautaudR = deltaR(ggEta,tautauEta,ggPhi,tautauPhi)
@@ -408,21 +417,24 @@ class HHggtautauProducer(Module):
                                     electrons[index1].pt,electrons[index1].eta,electrons[index1].phi,0.51100e-3,
                                     muons[index2].pt,muons[index2].eta,muons[index2].phi,0.10566)
             
+            for r in res:
+              print r
+            
             tautauPtSVFit   = res[0]
             tautauEtaSVFit  = res[1]
             tautauPhiSVFit  = res[2]
             tautauMassSVFit = res[3]
             
-            selectedElectron_ptSVFit[0]  = res[8]
-            selectedElectron_etaSVFit[0] = res[9]
-            selectedElectron_phiSVFit[0] = res[10]
-            selectedElectron_mSVFit[0]   = res[11]
-            selectedMuon_ptSVFit[1]  = res[4]
-            selectedMuon_etaSVFit[1] = res[5]
-            selectedMuon_phiSVFit[1] = res[6]
-            selectedMuon_mSVFit[1]   = res[7]
+            selectedElectron_ptSVFit[0]  = res[4]
+            selectedElectron_etaSVFit[0] = res[5]
+            selectedElectron_phiSVFit[0] = res[6]
+            selectedElectron_mSVFit[0]   = res[7]
+            selectedMuon_ptSVFit[0]  = res[8]
+            selectedMuon_etaSVFit[0] = res[9]
+            selectedMuon_phiSVFit[0] = res[10]
+            selectedMuon_mSVFit[0]   = res[11]
             
-            tautaudRSVFit = deltaR(selectedTau_etaSVFit[0], selectedTau_phiSVFit[0], selectedTau_etaSVFit[1], selectedTau_phiSVFit[1])
+            tautaudRSVFit = deltaR(selectedElectron_ptSVFit[0], selectedTau_phiSVFit[0], selectedMuon_ptSVFit[0], selectedMuon_ptSVFit[0])
             tautaudR = deltaR(electrons[index1],muons[index2])
             
             ggtautaudR = deltaR(ggEta,tautauEta,ggPhi,tautauPhi)
@@ -482,6 +494,8 @@ class HHggtautauProducer(Module):
         self.out.fillBranch("selectedElectron_etaSVFit",  selectedElectron_etaSVFit); 
         self.out.fillBranch("selectedElectron_phiSVFit",  selectedElectron_phiSVFit); 
         self.out.fillBranch("selectedElectron_mSVFit",  selectedElectron_mSVFit); 
+        
+        self.out.fillBranch("tauHidx"+self.postfix, tauHidx);
         
         return True
     
