@@ -26,6 +26,7 @@ from  PhysicsTools.NanoAODTools.postprocessing.examples.dump_pair import *
 #very basic selection which is covered then by the actual Hgg selection and crop at 1000 evts
 selection='''Sum$(Photon_pt > 18 && abs(Photon_eta)<2.5) > 1 && Entry$ < 1000'''
 selection='''Sum$(Photon_pt > 18 && abs(Photon_eta)<2.5) > 1'''
+selection='''Sum$(Photon_pt > 18 && abs(Photon_eta)<2.5) > 1 &&(Sum$(Electron_pt > 10 && abs(Electron_eta<2.5)) || Sum$(Muon_pt > 10 && abs(Muon_eta<2.4)) || Sum$(Tau_pt > 15 && abs(Tau_eta<2.4)) )'''
 #work on a local file
 # a modified nanoAOD which contians extra phton features -> to be merged soon to the central stuff
 files=["/hadoop/cms/store/user/hmei/nanoaod_runII/HHggtautau/HHggtautau_Era2018_private_v2_20201005/test_nanoaod_1.root"]
@@ -40,12 +41,14 @@ PrefireCorr2017 = lambda : PrefCorr('L1prefiring_jetpt_2017BtoF.root', 'L1prefir
 
 #2018 modules MC
 #jetmetUncertainties2018, puAutoWeight_2018, muonScaleRes2018
-
+print selection.replace('\n','')
 p=PostProcessor(".",files,       
                   selection.replace('\n',''),
                   branchsel="keep_and_drop.txt",
                   outputbranchsel="keep_and_drop.txt",
-                  modules=[puAutoWeight_2018(),jetmetUncertainties2018(), muonScaleRes2018(), gammaSF(), HggModule2018(), gammaWeightSF(), dumpSelectedPhotons(), HHggtautaulep2018(),HHggtautauModule2018LL()],
+                  modules=[puAutoWeight_2018(),jetmetUncertainties2018(), muonScaleRes2018(), gammaSF(), HggModule2018(), gammaWeightSF(), dumpSelectedPhotons(),
+                           HHggtautaulep2018(),HHggtautauModule2018LL(),
+                           dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus() ],
                   #modules=[puAutoWeight_2018(),jetmetUncertainties2018(),muonScaleRes2018(), gammaSF(), HggModule2018(), gammaWeightSF(), HHggtautaulep2018(), HHggtautauModule2018LVVV(), HHggtautauModule2018LL(), HHggtautauModule2018MM()],
                   provenance=True)
 
