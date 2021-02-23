@@ -20,6 +20,10 @@ from  PhysicsTools.NanoAODTools.postprocessing.examples.hgg_selection import *
 
 from  PhysicsTools.NanoAODTools.postprocessing.examples.dump_object import *
 from  PhysicsTools.NanoAODTools.postprocessing.examples.dump_pair import *
+
+from  PhysicsTools.NanoAODTools.postprocessing.examples.hgghtautau_leptonselection import *
+from  PhysicsTools.NanoAODTools.postprocessing.examples.hgghtautau_selection import *
+
 #very basic selection which is covered then by the actual Hgg selection and crop at 1000 evts
 selection='''Sum$(Photon_pt > 18 && abs(Photon_eta)<2.5) > 1 &&(Sum$(Electron_pt > 10 && abs(Electron_eta<2.5)) || Sum$(Muon_pt > 10 && abs(Muon_eta<2.4)) || Sum$(Tau_pt > 15 && abs(Tau_eta<2.4)) )'''
 
@@ -48,7 +52,7 @@ if "mc18" in sys.argv[2]:
                     branchsel="keep_and_drop.txt",
                     outputbranchsel="keep_and_drop.txt",
                     modules=[puAutoWeight_2018(),jetmetUncertainties2018(), muonScaleRes2018(), gammaSF(), HggModule2018(), gammaWeightSF(), dumpSelectedPhotons(),
-                             HHggtautaulep2018(),HHggtautauModule2018LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus() ]
+                             HHggtautaulep2018(),HHggtautauModule2018LL(), dumpSelectedMuons(),dumpSelectedElectrons(),dumpSelectedTaus() ],
                     provenance=True,
                     fwkJobReport=True, #NOT IN LOCAL
                     jsonInput=runsAndLumis() #NOT IN LOCAL

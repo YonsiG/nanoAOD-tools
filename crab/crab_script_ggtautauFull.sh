@@ -18,6 +18,7 @@ echo "CMSSW BASE, python path, pwd"
 echo $CMSSW_BASE 
 echo $PYTHON_PATH
 echo $PWD 
+
 rm -rf $CMSSW_BASE/lib/
 rm -rf $CMSSW_BASE/src/
 rm -rf $CMSSW_BASE/module/
