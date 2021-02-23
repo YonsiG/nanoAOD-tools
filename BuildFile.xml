@@ -2,6 +2,8 @@
 <use name="hepmc"/>
 <use name="CondFormats/JetMETObjects"/>
 <use name="JetMETCorrections/Modules"/>
+<use name="TauAnalysis/ClassicSVfit"/>
+<use name="TauAnalysis/SVfitTF"/>
 <export>
   <lib   name="1"/>
 </export>

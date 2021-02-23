@@ -14,9 +14,18 @@ import os, math
 base = os.getenv("CMSSW_BASE")
 arch = os.getenv("SCRAM_ARCH")
 
-ROOT.gROOT.ProcessLine(".L %s/lib/%s/libTauAnalysisSVfitTF.so"%(base, arch))
-ROOT.gROOT.ProcessLine(".L %s/lib/%s/libTauAnalysisClassicSVfit.so"%(base, arch))
-ROOT.gROOT.ProcessLine(".L %s/src/PhysicsTools/NanoAODTools/python/postprocessing/helpers//SVFitFunc.cc+"%base)
+#print ".L %s/lib/%s/libTauAnalysisSVfitTF.so"%(base, arch)
+#print ".L %s/lib/%s/libTauAnalysisClassicSVfit.so"%(base, arch)
+#print ".L %s/src/PhysicsTools/NanoAODTools/python/postprocessing/helpers//SVFitFunc.cc+"%base
+
+#ROOT.gROOT.ProcessLine(".L %s/lib/%s/libTauAnalysisSVfitTF.so"%(base, arch))
+#ROOT.gROOT.ProcessLine(".L %s/lib/%s/libTauAnalysisClassicSVfit.so"%(base, arch))
+#ROOT.gROOT.ProcessLine(".L %s/src/TauAnalysis/SVFitFunc.cc+"%base)
+##if os.path.isfile("%s/python/PhysicsTools/NanoAODTools/postprocessing/helpers/SVFitFunc.cc+"%base):
+  ##ROOT.gROOT.ProcessLine(".L %s/python/PhysicsTools/NanoAODTools/postprocessing/helpers/SVFitFunc.cc+"%base)
+##else:
+  ##print "NOFILE"
+  ##ROOT.gROOT.ProcessLine(".L %s/src/PhysicsTools/NanoAODTools/python/postprocessing/helpers//SVFitFunc.cc+"%base)
 
 
 class HHggtautauProducer(Module):
@@ -29,6 +38,7 @@ class HHggtautauProducer(Module):
         self.hadtau1 = hadtau1
         self.hadtau2 = hadtau2
         self.postfix = hadtau1+(hadtau2 if hadtau1!=hadtau2 else "")
+        self.SVFit=ROOT.SVFitFunc(1)
         
         ### ref link useful later on
         ### reduced JES uncertainties (see https://twiki.cern.ch/twiki/bin/viewauth/CMS/JECUncertaintySources#Run_2_reduced_set_of_uncertainty)
@@ -253,7 +263,7 @@ class HHggtautauProducer(Module):
             Category_pairs=3
             tautauMass=self.invMass(taus[index1],taus[index2])
             tautauPt,tautauEta,tautauPhi=self.PtEtaPhi(taus[index1],taus[index2])
-            res=ROOT.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
+            res=self.SVFit.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
                                     taus[index1].decayMode, taus[index2].decayMode, Category_pairs, 0, 
                                     taus[index1].pt,taus[index1].eta,taus[index1].phi,taus[index1].mass, 
                                     taus[index2].pt,taus[index2].eta,taus[index2].phi,taus[index2].mass )
@@ -284,7 +294,7 @@ class HHggtautauProducer(Module):
             Category_pairs=2
             tautauMass=self.invMass(electrons[index1],taus[index2],0.511/1000.)
             tautauPt,tautauEta,tautauPhi=self.PtEtaPhi(electrons[index1],taus[index2],0.511/1000.)
-            res=ROOT.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
+            res=self.SVFit.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
                                     1, taus[index2].decayMode, Category_pairs, 0, 
                                     electrons[index1].pt,electrons[index1].eta,electrons[index1].phi,0.51100e-3,
                                     taus[index2].pt,taus[index2].eta,taus[index2].phi,taus[index2].mass)
@@ -315,7 +325,7 @@ class HHggtautauProducer(Module):
             Category_pairs=1
             tautauMass=self.invMass(muons[index1],taus[index2])
             tautauPt,tautauEta,tautauPhi=self.PtEtaPhi(muons[index1],taus[index2])
-            res=ROOT.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
+            res=self.SVFit.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
                                     1, taus[index2].decayMode, Category_pairs, 0, 
                                     muons[index1].pt,muons[index1].eta,muons[index1].phi,0.10566,
                                     taus[index2].pt,taus[index2].eta,taus[index2].phi,taus[index2].mass )
@@ -348,7 +358,7 @@ class HHggtautauProducer(Module):
             Category_pairs=4
             tautauMass=self.invMass(muons[index1],muons[index2])
             tautauPt,tautauEta,tautauPhi=self.PtEtaPhi(muons[index1],muons[index2])
-            res=ROOT.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
+            res=self.SVFit.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
                                     1, 1, 1, 1, 
                                     muons[index1].pt,muons[index1].eta,muons[index1].phi,0.10566,
                                     muons[index2].pt,muons[index2].eta,muons[index2].phi,0.10566 )
@@ -380,7 +390,7 @@ class HHggtautauProducer(Module):
             Category_pairs=5
             tautauMass=self.invMass(electrons[index1],electrons[index2],0.511/1000.,0.511/1000.)
             tautauPt,tautauEta,tautauPhi=self.PtEtaPhi(electrons[index1],electrons[index2],0.511/1000.,0.511/1000.)
-            res=ROOT.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
+            res=self.SVFit.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
                                     1, 1, 2, 2, 
                                     electrons[index1].pt,electrons[index1].eta,electrons[index1].phi,0.51100e-3,
                                     electrons[index2].pt,electrons[index2].eta,electrons[index2].phi,0.51100e-3)
@@ -412,13 +422,13 @@ class HHggtautauProducer(Module):
             Category_pairs=6
             tautauMass=self.invMass(electrons[index1],muons[index2],0.511/1000.)
             tautauPt,tautauEta,tautauPhi=self.PtEtaPhi(electrons[index1],muons[index2],0.511/1000.)
-            res=ROOT.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
+            res=self.SVFit.SVfit_results( measuredMETx, measuredMETy, covMET_XX, covMET_XY, covMET_YY, 
                                     1, 1, 2, 1, 
                                     electrons[index1].pt,electrons[index1].eta,electrons[index1].phi,0.51100e-3,
                                     muons[index2].pt,muons[index2].eta,muons[index2].phi,0.10566)
             
-            for r in res:
-              print r
+            #for r in res:
+              #print r
             
             tautauPtSVFit   = res[0]
             tautauEtaSVFit  = res[1]
