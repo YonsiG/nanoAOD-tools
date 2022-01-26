@@ -150,7 +150,7 @@ datasets=[
 
 config.Data.splitting = 'FileBased'
 #config.Data.splitting = 'EventAwareLumiBased'
-config.Data.unitsPerJob = 10
+config.Data.unitsPerJob = 5 
 #config.Data.totalUnits = 20 #override
 
 config.Data.outLFNDirBase = '/store/user/legianni/skimNanoVVH-Hadronic'+version # cannot getUsernameFromSiteDB
@@ -160,7 +160,7 @@ config.Data.outputDatasetTag = 'skimNano-VVH'+version
 
 config.section_("Site")
 config.Site.storageSite = "T2_US_UCSD"
-#config.Site.whitelist = ["T2_US_UCSD"] # i know where the files are!!!!
+config.Site.whitelist = ["T2_US_UCSD"] # i know where the files are!!!!
 
 from CRABAPI.RawCommand import crabCommand
 
@@ -176,7 +176,7 @@ config.JobType.scriptArgs=["arg=mc16"]
 #config.Data.userInputFiles=files
 #config.Data.totalUnits = len(files)
 
-count=33
+count=43
 
 for d in datasets:
   files=d
